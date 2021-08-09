@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Blood Bank</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="details_text">Aenean dignissim molestie ligulatempus urna ullamcorper eget. Proin venenatis non elit ac feugiat. Aliquam et nibh quis justo semper tristique vel in nisi. Ut tincidunt enim metus,
+et consectetur mauris vestibulum in. Donec
+eu iaculis eros.Maecenas odio lectus, varius
+id lobortis sit amet, tempor et elit. </string>
+
+    <string-array name="blood_grp">
+
+        <item>A(Positive)</item>
+        <item>A(Negative)</item>
+        <item>AB(Positive)</item>
+        <item>AB(Negative)</item>
+        <item>B(Positive)</item>
+        <item>B(Negative)</item>
+        <item>O(Positive)</item>
+        <item>O(Negative)</item>
+
+    </string-array>
+
+</resources>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#E5E5E5"
+    tools:context=".DashboardFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Searching For Blood ?"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:textColor="#878484"
+                android:layout_marginTop="15dp"
+                />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:elevation="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/post_now_img"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"/>
+                    <TextView
+                        android:id="@+id/post_now_txt_btn_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@drawable/btn_selector"
+                        android:text="Post Now"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You Last Donated"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="4"
+                android:background="@drawable/light_pink_btn_back"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="105"
+                    android:gravity="center_vertical|right"
+                    android:textSize="18dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:text="Days Ago"
+                    android:textSize="12sp"
+                    android:textColor="#878484"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You can donate now"
+                android:textSize="10sp"
+                android:textColor="@color/light_green"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="People Searching For"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" O+"
+                    android:textSize="12sp"
+                    android:textColor="@color/pink"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="3dp"
+                    />
+
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="4"
+                android:background="@drawable/light_pink_btn_back"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="12"
+                    android:gravity="center_vertical|right"
+                    android:textSize="18dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:text="Peoples"
+                    android:textSize="12sp"
+                    android:textColor="#878484"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Blood Requests"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/requests_recycler_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

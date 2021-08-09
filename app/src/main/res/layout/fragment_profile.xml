@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    android:orientation="vertical"
+    tools:context=".ProfileFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="8dp"
+                android:layout_margin="20dp"
+                app:cardCornerRadius="10dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/profile_fragment_edit_btn_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/edit_icon"
+                        android:background="@drawable/circular_back"
+                        android:padding="10dp"
+                        android:elevation="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_fragment_profile_img_id"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ahsan_job"
+                        android:layout_below="@id/profile_fragment_edit_btn_id"
+                        android:layout_centerHorizontal="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/profile_fragment_profile_name_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Md Ahsanul Haque"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_margin="10dp"
+                        android:layout_below="@id/profile_fragment_profile_img_id"
+                        android:layout_centerHorizontal="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/profile_fragment_details_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/details_text"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:layout_below="@id/profile_fragment_profile_name_id"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center_horizontal"
+                        />
+                    <LinearLayout
+                        android:id="@+id/profile_fragment_location_linear_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_below="@id/profile_fragment_details_id"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        >
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/location_icon"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/profile_fragment_location_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Shyamoli , Dhaka 1207"
+                            android:textColor="@color/black"
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:layout_marginLeft="2dp"
+                            />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/profile_fragment_blood_grp_rltv_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/light_pink_btn_back"
+                        android:layout_below="@id/profile_fragment_location_linear_id"
+                        android:layout_margin="15dp"
+                        >
+                        <ImageView
+                            android:id="@+id/profile_fragment_blood_icon_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/blood_drop"
+                            android:layout_alignParentLeft="true"
+                            android:layout_margin="10dp"
+                            />
+                        <TextView
+                            android:id="@+id/profile_fragment_blood_grp_heading_txt_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Blood Group:"
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/profile_fragment_blood_icon_id"
+                            android:layout_centerVertical="true"
+                            />
+
+                        <TextView
+                            android:id="@+id/profile_fragment_blood_grp_txt_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:text="O(Positive)"
+                            android:textColor="@color/white"
+                            android:layout_centerVertical="true"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/history_fragment_donation_linear_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                >
+                <TextView
+                    android:id="@+id/history_fragment_donation_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Activity Log"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"/>
+                <View
+                    android:id="@+id/history_fragment_donation_line_id"
+                    android:layout_width="80dp"
+                    android:layout_height="2dp"
+                    android:background="#F60356"
+                    android:layout_gravity="center_horizontal"/>
+
+
+
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:weightSum="3">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Date"
+                            android:textSize="13sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Time"
+                            android:textSize="13sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Action"
+                            android:textSize="13sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/pink"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/profile_fragment_activity_log_recycler_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:layout_marginTop="8dp" />
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

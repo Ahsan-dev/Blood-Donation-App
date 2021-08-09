@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_marginBottom="10dp"
+    android:elevation="5dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="6"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="20dp"
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/history_items_year_txt_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2021"
+                android:background="@drawable/year_back_pink"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="30dp"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/history_items_month_txt_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="January"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:id="@+id/history_items_date_txt_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="17"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/location_icon"
+                    android:layout_margin="2dp"
+                    />
+
+                <TextView
+                    android:id="@+id/history_items_location_txt_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shyamoli , Dhaka 1207"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:textSize="8sp"
+                    android:layout_marginLeft="5dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/local_hospital_icon"
+                    android:layout_margin="2dp"
+                    />
+                <TextView
+                    android:id="@+id/history_items_hospital_txt_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ibne Sina Hospital"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:textSize="8sp"
+                    android:layout_marginLeft="5dp"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/history_items_blood_group_txt_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="O(Positive)"
+                    android:textColor="@color/pink"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    />
+                <TextView
+                    android:id="@+id/history_items_times_ago_txt_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="121 Days Ago"
+                    android:textColor="@color/light_gray"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

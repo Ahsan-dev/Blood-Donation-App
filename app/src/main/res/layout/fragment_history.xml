@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    android:orientation="vertical"
+    tools:context=".HistoryFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/history_fragment_donation_linear_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="30dp"
+            >
+            <TextView
+                android:id="@+id/history_fragment_donation_text_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Donations"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/pink"/>
+            <View
+                android:id="@+id/history_fragment_donation_line_id"
+                android:layout_width="100dp"
+                android:layout_height="2dp"
+                android:background="#F60356"
+                android:layout_gravity="center_horizontal"/>
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/history_fragment_service_taken_linear_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_margin="30dp"
+            >
+            <TextView
+                android:id="@+id/history_fragment_service_taken_text_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service Taken"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+
+            <View
+                android:id="@+id/history_fragment_service_taken_line_id"
+                android:layout_width="100dp"
+                android:layout_height="2dp"
+                android:background="#F60356"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                />
+
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/history_fragment_recycler_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"/>
+
+
+</LinearLayout>
