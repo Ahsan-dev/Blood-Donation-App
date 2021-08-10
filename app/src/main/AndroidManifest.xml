@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodBank">
-        <activity android:name=".SuccessfulRegiActivity"></activity>
+        <activity android:name=".MyPostsActivity"></activity>
+        <activity android:name=".SuccessfulRegiActivity" />
         <activity android:name=".RegisterDetailsActivity" />
         <activity android:name=".RegisterImageActivity" />
         <activity android:name=".RegisterActivity" />
@@ -20,13 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
-        </activity>
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

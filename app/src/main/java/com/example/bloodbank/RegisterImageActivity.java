@@ -8,11 +8,16 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class RegisterImageActivity extends AppCompatActivity {
 
@@ -20,6 +25,14 @@ public class RegisterImageActivity extends AppCompatActivity {
     private ImageView captureBtn, cancelBtn;
     private TextView fromStorageTxtBtn, skipTxtBtn, nextBtn;
     private Bitmap photo;
+    //private Uri imageUri;
+
+    private String filePath;
+    private static final int PICK_PHOTO = 1958;
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     private static final int CAMERA_REQUEST = 1888;
 
@@ -57,15 +70,58 @@ public class RegisterImageActivity extends AppCompatActivity {
             }
         });
 
+        fromStorageTxtBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent imagePickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(imagePickIntent,PICK_PHOTO);
+            }
+        });
+
+
+        skipTxtBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerDetailsIntent = new Intent(getApplicationContext(),RegisterDetailsActivity.class);
+                startActivity(registerDetailsIntent);
+            }
+        });
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerDetailsIntent = new Intent(getApplicationContext(),RegisterDetailsActivity.class);
+                startActivity(registerDetailsIntent);
+            }
+        });
+
 
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
-        onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST) {
             photo = (Bitmap) data.getExtras().get("data");
-            capturedImg.setImageBitmap(photo);
+            Uri imageUri1 = data.getData();
+            filePath = getPath(imageUri1);
+            Picasso.get().load(imageUri1).into(capturedImg);
+        }
+
+        if (resultCode == RESULT_OK && requestCode == PICK_PHOTO) {
+            Uri imageUri = data.getData();
+            filePath = getPath(imageUri);
+            Picasso.get().load(imageUri).into(capturedImg);
         }
     }
+
+    private String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+
 }

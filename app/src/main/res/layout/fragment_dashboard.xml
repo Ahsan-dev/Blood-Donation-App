@@ -61,6 +61,20 @@
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Check Your posts"
+                        android:gravity="center"
+                        android:layout_gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/pink_btn_stroke_back"
+                        android:padding="5dp"
+                        android:textColor="@color/pink"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="15dp"/>
 
                 </LinearLayout>
 

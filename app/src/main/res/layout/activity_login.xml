@@ -17,7 +17,7 @@
         />
 
     <EditText
-        android:id="@+id/phn_numberEdtId"
+        android:id="@+id/login_phn_numberEdtId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/loginlogoId"
@@ -33,10 +33,10 @@
         android:textStyle="bold"
         />
     <EditText
-        android:id="@+id/phn_passwordEdtId"
+        android:id="@+id/login_passwordrEdtId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/phn_numberEdtId"
+        android:layout_below="@+id/login_phn_numberEdtId"
         android:background="@drawable/light_pink_btn_back"
         android:padding="20dp"
         android:layout_marginRight="15dp"
@@ -53,12 +53,12 @@
         android:id="@+id/linearlayoutId"
         android:orientation="horizontal"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/phn_passwordEdtId"
+        android:layout_below="@+id/login_passwordrEdtId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.rey.material.widget.CheckBox
-            android:id="@+id/logIncheckboxId"
+            android:id="@+id/logIn_remember_checkboxId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Material.Drawable.CheckBox"
