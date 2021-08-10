@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/successfull_regi"
+
+    tools:context=".SuccessfulRegiActivity">
+
+    <TextView
+        android:id="@+id/successful_regi_go_homepage_txt_btn_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go to Homepage"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:background="@drawable/btn_selector"
+        android:layout_margin="20dp"
+        android:padding="5dp"
+        android:textColor="@color/white"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registration Successful\n Thank You\n Give blood save life"
+        android:layout_above="@id/successful_regi_go_homepage_txt_btn_id"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/pink"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"/>
+
+
+</RelativeLayout>

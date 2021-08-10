@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/appTitleText"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:scaleType="fitXY"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/app_icon"
+                    android:layout_marginTop="20dp"
+                    />
+                <TextView
+                    android:id="@+id/register_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Register Here"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:layout_below="@id/appTitleText"
+                    />
+
+                <RelativeLayout
+                    android:id="@+id/register_user_name_linear"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/light_pink_btn_back"
+                    android:layout_below="@+id/register_title"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="6dp"
+                    >
+                    <EditText
+                        android:id="@+id/register_user_name_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/person"
+                        android:hint="Enter Your Name"
+                        android:textIsSelectable="false"
+                        android:maxLength="20"
+                        android:drawablePadding="10dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:backgroundTint="@android:color/transparent"/>
+                    <!--            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"-->
+                    <!--            android:inputType="textFilter"-->
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/register_mobile_linear"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/light_pink_btn_back"
+                    android:layout_below="@+id/register_user_name_linear"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="6dp"
+                    >
+                    <EditText
+                        android:id="@+id/register_mobile_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/white_phone_24"
+                        android:hint="Mobile"
+                        android:textIsSelectable="false"
+                        android:drawablePadding="10dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:inputType="numberSigned"
+                        android:maxLength="11"
+                        android:backgroundTint="@android:color/transparent"
+                        />
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/register_alternate_mobile_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/light_pink_btn_back"
+                    android:layout_below="@+id/register_mobile_linear"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="6dp"
+                    >
+                    <EditText
+                        android:id="@+id/register_alt_mobile_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/white_phone_24"
+                        android:hint="Alternate Mobile"
+                        android:textIsSelectable="false"
+                        android:drawablePadding="10dp"
+                        android:inputType="numberSigned"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:maxLength="11"
+                        android:backgroundTint="@android:color/transparent"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/register_email_linear"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/light_pink_btn_back"
+                    android:layout_below="@+id/register_alternate_mobile_linear"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="6dp"
+                    >
+                    <EditText
+                        android:id="@+id/register_email_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email"
+                        android:drawablePadding="10dp"
+                        android:drawableLeft="@drawable/email_24"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textIsSelectable="false"
+                        android:backgroundTint="@android:color/transparent"
+                        />
+                </RelativeLayout>
+
+                <Spinner
+                    android:id="@+id/register_bloodgrp_spinner_id"
+                    android:layout_below="@+id/register_email_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:pointerIcon="arrow"
+                    android:background="@drawable/light_pink_btn_back"
+
+                    />
+                <Spinner
+                    android:id="@+id/register_religion_spinner_id"
+                    android:layout_below="@+id/register_bloodgrp_spinner_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:pointerIcon="arrow"
+                    android:background="@drawable/light_pink_btn_back"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    />
+
+                <RelativeLayout
+                    android:id="@+id/register_state_linear"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/light_pink_btn_back"
+                    android:layout_below="@+id/register_religion_spinner_id"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="6dp"
+                    >
+                    <EditText
+                        android:id="@+id/register_state_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter your city/division"
+                        android:drawablePadding="10dp"
+                        android:drawableLeft="@drawable/location_alt_24"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textIsSelectable="false"
+                        android:backgroundTint="@android:color/transparent"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/register_district_linear"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/light_pink_btn_back"
+                    android:layout_below="@+id/register_state_linear"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="6dp"
+                    >
+                    <EditText
+                        android:id="@+id/register_district_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter your district"
+                        android:drawablePadding="10dp"
+                        android:drawableLeft="@drawable/location_alt_24"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textIsSelectable="false"
+                        android:backgroundTint="@android:color/transparent"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/register_police_station_linear"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/light_pink_btn_back"
+                    android:layout_below="@+id/register_district_linear"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="6dp"
+                    >
+                    <EditText
+                        android:id="@+id/register_police_station_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter your Police Station"
+                        android:drawablePadding="10dp"
+                        android:drawableLeft="@drawable/location_alt_24"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textIsSelectable="false"
+                        android:backgroundTint="@android:color/transparent"
+                        />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/register_next_btn_id"
+                    android:layout_below="@+id/register_police_station_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/btn_selector"
+                    android:text="Next"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

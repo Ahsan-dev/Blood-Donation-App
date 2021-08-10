@@ -43,4 +43,10 @@ dependencies {
 
     //Circle Image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //rey material design
+    implementation 'com.github.rey5137:material:1.2.5'
+
+    //Paper db
+    implementation 'io.paperdb:paperdb:2.6'
 }

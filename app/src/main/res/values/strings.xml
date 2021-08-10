@@ -9,7 +9,7 @@ eu iaculis eros.Maecenas odio lectus, varius
 id lobortis sit amet, tempor et elit. </string>
 
     <string-array name="blood_grp">
-
+        <item>--Select Your Blood Group--</item>
         <item>A(Positive)</item>
         <item>A(Negative)</item>
         <item>AB(Positive)</item>
@@ -18,6 +18,16 @@ id lobortis sit amet, tempor et elit. </string>
         <item>B(Negative)</item>
         <item>O(Positive)</item>
         <item>O(Negative)</item>
+
+    </string-array>
+
+    <string-array name="religion">
+
+        <item>--Select Your Religion--</item>
+        <item>Muslim</item>
+        <item>Hindu</item>
+        <item>Buddhist</item>
+        <item>Christian</item>
 
     </string-array>
 

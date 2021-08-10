@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".RegisterDetailsActivity">
+
+    <EditText
+        android:id="@+id/register_details_edt_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_btn_back"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Write Something about You"
+        android:imeOptions="actionDone"
+        android:lines="10"
+        android:inputType="textMultiLine"
+        android:isScrollContainer="true"
+        android:textSize="14sp"
+        android:maxLength="300"
+        android:paddingBottom="10dp"
+        android:gravity="start"
+        android:singleLine="false"
+        android:padding="5dp"
+        android:scrollbars="vertical"
+        android:overScrollMode="always"
+        android:scrollbarStyle="insideInset"
+
+
+        />
+
+    <LinearLayout
+        android:id="@+id/register_terms_policy_linear"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/register_terms_policy_checker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Material.Drawable.CheckBox"
+            android:text="I have read and accept"
+            android:textColor="@android:color/black"
+            app:cbd_strokeColor="@color/pink"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAllCaps="false" />
+        <TextView
+            android:id="@+id/register_our_policy_TxtBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Our Policies"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/pink"
+            android:layout_marginLeft="5dp"
+
+            />
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/register_details_confirm_btn_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_selector"
+        android:text="Confirm Registration"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        />
+
+
+
+</LinearLayout>

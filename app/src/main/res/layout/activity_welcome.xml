@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/welcome_page_back"
+    tools:context=".WelcomeActivity">
+
+    <ImageView
+        android:id="@+id/app_logoId"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/app_icon"
+        />
+
+    <TextView
+        android:id="@+id/app_sloganId"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_logoId"
+        android:text="Give blood, \n          Save Life"
+        android:textColor="@color/pink"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold|italic"
+        />
+
+    <TextView
+        android:id="@+id/welcome_login_buttonId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pink_btn_back"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="15dp"
+        android:textSize="18dp"
+        android:text="Already have an account? Login"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+
+        />
+
+    <TextView
+        android:id="@+id/welcome_register_buttonId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pink_btn_stroke_back"
+        android:layout_above="@id/welcome_login_buttonId"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="15dp"
+        android:textSize="18dp"
+        android:text="Register Now "
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/pink"
+
+        />
+
+</RelativeLayout>
+
