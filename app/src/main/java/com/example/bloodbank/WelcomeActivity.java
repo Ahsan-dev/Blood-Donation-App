@@ -76,7 +76,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Login Successful.",Toast.LENGTH_SHORT).show();
                 loadingBar.dismiss();
-                startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
+                startActivity(new Intent(WelcomeActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
 
             }else {
 

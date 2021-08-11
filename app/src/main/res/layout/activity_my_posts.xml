@@ -9,20 +9,17 @@
     android:orientation="vertical"
     tools:context=".MyPostsActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Your all posts"
-        android:gravity="center"
-        android:textSize="12sp"
-        android:textColor="@color/pink"
-        android:layout_marginTop="15dp"
-        />
+    <include
+        android:id="@+id/my_all_post_toolbar_id"
+        layout="@layout/custom_toolbar_layout"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_posts_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         >
 
     </androidx.recyclerview.widget.RecyclerView>

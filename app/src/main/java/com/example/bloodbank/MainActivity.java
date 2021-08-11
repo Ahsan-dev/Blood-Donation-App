@@ -3,8 +3,11 @@ package com.example.bloodbank;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -107,6 +110,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.home_frag_linear_id,fragment).commit();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_layout);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        TextView message = (TextView) dialog.findViewById(R.id.alertDialogMessageId);
+        message.setText("Do you want to exit ?");
+
+        TextView yesBtn = dialog.findViewById(R.id.alert_positive_btn_id);
+        TextView noBtn = dialog.findViewById(R.id.alert_negative_btn_id);
+        yesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+               // System.exit(0);
+
+            }
+        });
+
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
 
     }
 }

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="@color/white"
+    android:layout_marginBottom="10dp"
+    android:elevation="5dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="8"
+            >
+            <TextView
+                android:id="@+id/admin_date_assign_item_details_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/details_text"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="11sp"
+                android:layout_margin="10dp"/>
+
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/my_post_requests_item_white_line_id"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:background="@color/pink"
+            android:layout_marginRight="30dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Donor:"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="center_vertical"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/admin_date_assign_item_profile_img_id"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/ic_launcher"/>
+            <TextView
+                android:id="@+id/admin_date_assign_item_profile_name_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Md Ahsanul Haque"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Donation Date: "
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/admin_date_assign_item_date_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15/02/2021"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:weightSum="2"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            >
+
+            <EditText
+                android:id="@+id/admin_date_assign_item_date_edit_id"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="dd/MM/yyyy"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="5dp"
+                android:background="@drawable/pink_btn_stroke_back"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/admin_date_assign_item_assign_txt_btn_id"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Assign Date"
+                android:gravity="center"
+                android:background="@drawable/pink_btn_back"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:padding="5dp"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

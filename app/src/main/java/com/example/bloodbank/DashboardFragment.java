@@ -1,6 +1,7 @@
 package com.example.bloodbank;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
@@ -33,7 +34,7 @@ public class DashboardFragment extends Fragment {
      List<RequestsItemsModel> reqLists;
      private RecyclerView reqRecycler;
      private RequestsRecyclerAdapter reqRecyclerAdapter;
-     private TextView postNowBtn;
+     private TextView postNowBtn, checkPostsBtn;
      private View view;
 
     @Override
@@ -48,6 +49,11 @@ public class DashboardFragment extends Fragment {
         reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",false,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
         reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",true,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
         reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",false,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
+        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",true,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
+        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",false,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
+        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",true,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
+        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",false,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
+
 
         reqRecycler = view.findViewById(R.id.requests_recycler_id);
         reqRecyclerAdapter = new RequestsRecyclerAdapter(reqLists,view.getContext());
@@ -55,11 +61,19 @@ public class DashboardFragment extends Fragment {
         reqRecycler.setAdapter(reqRecyclerAdapter);
 
         postNowBtn = view.findViewById(R.id.post_now_txt_btn_id);
+        checkPostsBtn = view.findViewById(R.id.checked_post_txt_btn_id);
 
         postNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showInAlertDialog();
+            }
+        });
+
+        checkPostsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(),MyPostsActivity.class));
             }
         });
 

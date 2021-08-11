@@ -62,6 +62,7 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/checked_post_txt_btn_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Check Your posts"

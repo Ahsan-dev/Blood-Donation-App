@@ -38,6 +38,107 @@
         />
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="7"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:background="@drawable/pink_btn_stroke_back"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        >
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="22dp"
+            android:src="@drawable/password"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center_vertical"
+            />
+
+        <EditText
+            android:id="@+id/register_details_pass_edt_id"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Enter Password"
+            android:textColorHint="#FB2325"
+            android:backgroundTint="@color/pink"
+            android:textColor="#FB2325"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            />
+        <ImageView
+            android:id="@+id/register_details_pass_eye_id"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="22dp"
+            android:src="@drawable/eye"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+
+
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/password_passedt_linearId"
+        android:layout_width="match_parent"
+        android:weightSum="7"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:background="@drawable/pink_btn_stroke_back"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        >
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="22dp"
+            android:src="@drawable/password"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center_vertical"
+            />
+
+        <EditText
+            android:id="@+id/register_details_confirm_pass_edt_id"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Confirm Password"
+            android:textColorHint="#FB2325"
+            android:backgroundTint="@color/pink"
+            android:textColor="#FB2325"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            />
+        <ImageView
+            android:id="@+id/register_details_confirm_pass_eye_id"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="22dp"
+            android:src="@drawable/eye"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+
+
+            />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/register_terms_policy_linear"
         android:orientation="horizontal"
         android:layout_marginTop="15dp"
