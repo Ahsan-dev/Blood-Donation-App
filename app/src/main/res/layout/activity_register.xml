@@ -82,12 +82,14 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="6dp"
                     >
+
+
                     <EditText
                         android:id="@+id/register_mobile_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/white_phone_24"
-                        android:hint="Mobile"
+                        android:hint="Mobile(with country code)"
                         android:textIsSelectable="false"
                         android:drawablePadding="10dp"
                         android:textColor="@color/white"
@@ -177,6 +179,18 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     />
+                <Spinner
+                    android:id="@+id/register_gender_spinner_id"
+                    android:layout_below="@+id/register_religion_spinner_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:pointerIcon="arrow"
+                    android:background="@drawable/light_pink_btn_back"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    />
 
                 <RelativeLayout
                     android:id="@+id/register_state_linear"
@@ -184,7 +198,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/light_pink_btn_back"
-                    android:layout_below="@+id/register_religion_spinner_id"
+                    android:layout_below="@+id/register_gender_spinner_id"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="6dp"
@@ -303,7 +317,7 @@
                         android:text="Date of Birth :"
                         android:textColor="@android:color/black"
                         android:layout_gravity="center"
-                        android:textSize="16sp"/>
+                        android:textSize="13sp"/>
 
 
                     <TextView
@@ -317,7 +331,7 @@
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
                         android:text="DD/MM/YYYY"
-                        android:textSize="17sp"/>
+                        android:textSize="12sp"/>
                     <ImageView
                         android:id="@+id/personal_detail_dob_btn_id"
                         android:layout_width="30dp"

@@ -5,14 +5,20 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bloodbank.Adapter.HistoryRecyclerAdapter;
+import com.example.bloodbank.Api.Api;
 import com.example.bloodbank.Models.HistoryModel;
 
 import java.util.ArrayList;
@@ -26,12 +32,15 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
     private LinearLayout donateLinear, serviceTakenLinear;
     private TextView donateText, serviceTakenTxt;
     private View donateLine, serviceTakenLine;
+    private Api api;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
+
+        Paper.init(view.getContext());
 
         donateLinear = view.findViewById(R.id.history_fragment_donation_linear_id);
         donateText = view.findViewById(R.id.history_fragment_donation_text_id);
@@ -46,14 +55,6 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         donateList = new ArrayList<>();
         serviceTakenList = new ArrayList<>();
 
-
-        donateList.add(new HistoryModel("2021","January","17","Netrakona","Netrakona Sadar Hospital","Ö(Positive)","107"));
-        donateList.add(new HistoryModel("2021","January","17","Netrakona","Netrakona Sadar Hospital","Ö(Positive)","107"));
-        donateList.add(new HistoryModel("2021","January","17","Netrakona","Netrakona Sadar Hospital","Ö(Positive)","107"));
-
-        serviceTakenList.add(new HistoryModel("2020","December","17","Netrakona","Netrakona Sadar Hospital","Ö(Positive)","107"));
-        serviceTakenList.add(new HistoryModel("2020","Jun","17","Mymensingh","Mymensingh Medical College Hospital","Ö(Positive)","105"));
-        serviceTakenList.add(new HistoryModel("2020","January","17","Netrakona","Netrakona Sadar Hospital","Ö(Positive)","107"));
 
         hisRecycler = view.findViewById(R.id.history_fragment_recycler_id);
         hisRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -80,6 +81,31 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
             serviceTakenTxt.setTextColor(getResources().getColor(R.color.black));
             serviceTakenLine.setVisibility(View.GONE);
 
+            Call<List<HistoryModel>>  call = api.getDonationHistory(Paper.book().read(Permanent.uid));
+
+            call.enqueue(new Callback<List<HistoryModel>>() {
+                @Override
+                public void onResponse(Call<List<HistoryModel>> call, Response<List<HistoryModel>> response) {
+                    if(response.body()!=null){
+
+                        donateList = response.body();
+
+                    }else{
+
+                        Toast.makeText(v.getContext(), "Response Not found!", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<HistoryModel>> call, Throwable t) {
+
+                    Toast.makeText(v.getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+
             hisResAdapter = new HistoryRecyclerAdapter(donateList,v.getContext());
             hisRecycler.setAdapter(hisResAdapter);
 
@@ -96,6 +122,30 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
             serviceTakenTxt.setTextSize(20);
             serviceTakenTxt.setTextColor(getResources().getColor(R.color.pink));
             serviceTakenLine.setVisibility(View.VISIBLE);
+
+            Call<List<HistoryModel>>  call = api.getServiceTakenHistory(Paper.book().read(Permanent.uid));
+
+            call.enqueue(new Callback<List<HistoryModel>>() {
+                @Override
+                public void onResponse(Call<List<HistoryModel>> call, Response<List<HistoryModel>> response) {
+                    if(response.body()!=null){
+
+                        serviceTakenList = response.body();
+
+                    }else{
+
+                        Toast.makeText(v.getContext(), "Response Not found!", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<HistoryModel>> call, Throwable t) {
+
+                    Toast.makeText(v.getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
 
             hisResAdapter = new HistoryRecyclerAdapter(serviceTakenList,v.getContext());
             hisRecycler.setAdapter(hisResAdapter);

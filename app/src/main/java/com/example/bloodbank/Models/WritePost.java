@@ -2,11 +2,8 @@ package com.example.bloodbank.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MyPostRequestsModel {
+public class WritePost {
 
-    @SerializedName("id")
-
-    private Integer id;
     @SerializedName("user_id")
 
     private Integer userId;
@@ -40,20 +37,14 @@ public class MyPostRequestsModel {
     @SerializedName("status")
 
     private String status;
-    @SerializedName("created_at")
-
-    private String createdAt;
-    @SerializedName("updated_at")
-
-    private String updatedAt;
 
 
-    public MyPostRequestsModel() {
+    public WritePost() {
     }
 
-    public MyPostRequestsModel(Integer id, Integer userId, String details, String bloodGrp, String relation, String policeStation, String hospital, String district, String mobile, String date, String timeFrame, String status, String createdAt, String updatedAt) {
+
+    public WritePost(Integer userId, String details, String bloodGrp, String relation, String policeStation, String hospital, String district, String mobile, String date, String timeFrame, String status) {
         super();
-        this.id = id;
         this.userId = userId;
         this.details = details;
         this.bloodGrp = bloodGrp;
@@ -65,16 +56,6 @@ public class MyPostRequestsModel {
         this.date = date;
         this.timeFrame = timeFrame;
         this.status = status;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getUserId() {
@@ -165,19 +146,4 @@ public class MyPostRequestsModel {
         this.status = status;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }

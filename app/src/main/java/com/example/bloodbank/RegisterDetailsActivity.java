@@ -1,11 +1,17 @@
 package com.example.bloodbank;
 
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +19,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.bloodbank.Api.Api;
 import com.rey.material.widget.CheckBox;
+
+import java.io.IOException;
 
 public class RegisterDetailsActivity extends AppCompatActivity {
 
@@ -23,13 +32,31 @@ public class RegisterDetailsActivity extends AppCompatActivity {
     private Button confirmBtn;
     private boolean checked;
     private ImageView passEyeToggle, confirmPassEyeToggle;
+    private String filePath, userName, mobile, altMobile, email, city, district, policeStation, bloodGrp, religion, gender, weight, birthDay;
     Boolean passEyeState = true, confirmPassEyeState = true;
     String pass, confirmPass;
+    private Api api;
+    private ProgressDialog loadingBar;
+    String r;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_details);
+
+        userName = getIntent().getStringExtra("user_name");
+        mobile = getIntent().getStringExtra("mobile");
+        altMobile = getIntent().getStringExtra("alt_mobile");
+        email = getIntent().getStringExtra("email");
+        bloodGrp = getIntent().getStringExtra("blood_group");
+        religion = getIntent().getStringExtra("religion");
+        gender = getIntent().getStringExtra("gender");
+        city = getIntent().getStringExtra("division");
+        district = getIntent().getStringExtra("district");
+        policeStation = getIntent().getStringExtra("police_station");
+        weight = getIntent().getStringExtra("weight");
+        birthDay = getIntent().getStringExtra("birth_date");
+        filePath = getIntent().getStringExtra("image");
 
         detailsEdt = findViewById(R.id.register_details_edt_id);
         termsChecker = findViewById(R.id.register_terms_policy_checker);
@@ -38,6 +65,8 @@ public class RegisterDetailsActivity extends AppCompatActivity {
         confirmPassEyeToggle = findViewById(R.id.register_details_confirm_pass_eye_id);
         passEdt = findViewById(R.id.register_details_pass_edt_id);
         confirmPassEdt = findViewById(R.id.register_details_confirm_pass_edt_id);
+
+        loadingBar = new ProgressDialog(this);
 
         passEyeToggle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,11 +149,52 @@ public class RegisterDetailsActivity extends AppCompatActivity {
                     return;
 
                 }else{
+                    loadingBar.setTitle("Registering your Account..");
+                    loadingBar.setMessage("Plz wait, while we are checking the credentials..");
+                    loadingBar.setCanceledOnTouchOutside(false);
+                    loadingBar.show();
 
-                    Toast.makeText(RegisterDetailsActivity.this, "Confirm Registration", Toast.LENGTH_SHORT).show();
-                    Intent successRegiIntent = new Intent(getApplicationContext(),SuccessfulRegiActivity.class);
-                    successRegiIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(successRegiIntent);
+                    Call<ResponseBody> call =api.insertUser(userName, mobile, altMobile, email, city, district, policeStation, bloodGrp, religion, gender, weight, birthDay,filePath,details,pass);
+
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                            assert response.body() != null;
+                            try {
+                                r = response.body().toString();
+
+                                if(r.equals("Registered")){
+                                    loadingBar.dismiss();
+                                    Toast.makeText(getApplicationContext(),r,Toast.LENGTH_LONG).show();
+                                    Toast.makeText(RegisterDetailsActivity.this, r, Toast.LENGTH_SHORT).show();
+                                    Intent successRegiIntent = new Intent(getApplicationContext(),SuccessfulRegiActivity.class);
+                                    successRegiIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(successRegiIntent);
+
+                                }else if(r.equals("Failed")){
+                                    loadingBar.dismiss();
+                                    Toast.makeText(RegisterDetailsActivity.this, r+". Try Again!", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    loadingBar.dismiss();
+                                    Toast.makeText(RegisterDetailsActivity.this, r, Toast.LENGTH_SHORT).show();
+                                    Intent regiIntent = new Intent(getApplicationContext(),RegisterActivity.class);
+                                    regiIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(regiIntent);
+                                }
+                            } catch (Exception e) {
+                                loadingBar.dismiss();
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            loadingBar.dismiss();
+                            Toast.makeText(RegisterDetailsActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
                 }
 

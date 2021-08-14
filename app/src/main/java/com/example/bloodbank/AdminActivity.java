@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -12,8 +15,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bloodbank.Adapter.AdminDateAssignAdapter;
+import com.example.bloodbank.Api.Api;
 import com.example.bloodbank.Models.AdminDateAssignModel;
 
 import java.util.ArrayList;
@@ -25,6 +30,8 @@ public class AdminActivity extends AppCompatActivity {
     private RecyclerView assignDateRecycler;
     private List<AdminDateAssignModel> dateAssList;
     private AdminDateAssignAdapter assignAdapter;
+
+    protected Api api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +52,30 @@ public class AdminActivity extends AppCompatActivity {
         assignDateRecycler = findViewById(R.id.admin_dashboard_recycler_id);
         dateAssList = new ArrayList<>();
 
-        dateAssList.add(new AdminDateAssignModel(1,R.drawable.ahsan_job,"Md Ahsanul",getString(R.string.details_text),"15/02/2021"));
-        dateAssList.add(new AdminDateAssignModel(2,R.drawable.ahsan_job,"Md Ahsanul",getString(R.string.details_text),"15/02/2021"));
-        dateAssList.add(new AdminDateAssignModel(3,R.drawable.ahsan_job,"Md Ahsanul",getString(R.string.details_text),"15/02/2021"));
-        dateAssList.add(new AdminDateAssignModel(4,R.drawable.ahsan_job,"Md Ahsanul",getString(R.string.details_text),"15/02/2021"));
-        dateAssList.add(new AdminDateAssignModel(5,R.drawable.ahsan_job,"Md Ahsanul",getString(R.string.details_text),"15/02/2021"));
+        Call<List<AdminDateAssignModel>> call = api.postsAdminToSign();
+
+        call.enqueue(new Callback<List<AdminDateAssignModel>>() {
+            @Override
+            public void onResponse(Call<List<AdminDateAssignModel>> call, Response<List<AdminDateAssignModel>> response) {
+                if(response.body()!=null){
+
+                    dateAssList = response.body();
+                }else {
+
+                    Toast.makeText(AdminActivity.this, "Response Not Found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<AdminDateAssignModel>> call, Throwable t) {
+
+                Toast.makeText(AdminActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
 
         assignAdapter = new AdminDateAssignAdapter(dateAssList,this);
         assignDateRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -94,4 +120,6 @@ public class AdminActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
+
 }

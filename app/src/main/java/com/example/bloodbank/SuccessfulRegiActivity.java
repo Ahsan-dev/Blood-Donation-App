@@ -22,9 +22,9 @@ public class SuccessfulRegiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent homeIntent = new Intent(getApplicationContext(),MainActivity.class);
-                homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(homeIntent);
+                Intent loginIntent = new Intent(getApplicationContext(),LoginActivity.class);
+                loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(loginIntent);
 
             }
         });

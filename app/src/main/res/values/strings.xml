@@ -31,4 +31,23 @@ id lobortis sit amet, tempor et elit. </string>
 
     </string-array>
 
+
+    <string-array name="gender">
+
+        <item>--Select Your Gender--</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+
+    </string-array>
+
+    <string-array name="relation">
+
+        <item>--Select Relation--</item>
+        <item>Family</item>
+        <item>Friend</item>
+        <item>Relative</item>
+
+    </string-array>
+
 </resources>

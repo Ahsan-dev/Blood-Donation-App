@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bloodbank.Api.Api;
 import com.example.bloodbank.Models.MyPostRequestsModel;
 import com.example.bloodbank.Models.PostResponseModel;
 import com.example.bloodbank.R;
@@ -29,8 +30,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyPostReqRecyclerAdapter extends RecyclerView.Adapter<MyPostReqViewHolder> {
+
+    private Api api;
+    private int postId;
+    private List<PostResponseModel> prList;
 
     private List<MyPostRequestsModel> myReqList;
     private Context context;
@@ -54,12 +63,15 @@ public class MyPostReqRecyclerAdapter extends RecyclerView.Adapter<MyPostReqView
 
         MyPostRequestsModel myPostModel = myReqList.get(position);
 
-        holder.postDetailTxt.setText(myPostModel.getPostDetails());
-        holder.postLocationTxt.setText(myPostModel.getPostLocation());
-        holder.postHospitalTxt.setText(myPostModel.getPostHospital());
-        holder.postBloodGrpTxt.setText(myPostModel.getPostBloodGrp());
+        holder.postDetailTxt.setText(myPostModel.getDetails());
+        String loc = myPostModel.getPoliceStation()+", "+myPostModel.getDistrict();
+        holder.postLocationTxt.setText(loc);
+        holder.postHospitalTxt.setText(myPostModel.getHospital());
+        holder.postBloodGrpTxt.setText(myPostModel.getBloodGrp());
 
-        String status = myPostModel.getPostStatus();
+        postId = myPostModel.getId();
+
+        String status = myPostModel.getStatus();
         if(status.equals("donated")){
             holder.postStatusTxt.setText(status);
             holder.postStatusTxt.setTextColor(context.getResources().getColor(R.color.green));
@@ -95,10 +107,31 @@ public class MyPostReqRecyclerAdapter extends RecyclerView.Adapter<MyPostReqView
         dialog.setContentView(R.layout.post_response_layout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-        List<PostResponseModel> prList = new ArrayList<>();
-        prList.add(new PostResponseModel(R.drawable.ahsan_job,"Md Ahsanul Haque","Kalmakanda, Netrakona","01775794472"));
-        prList.add(new PostResponseModel(R.drawable.ahsan_job,"Md Monir Hossain","Kalmakanda, Netrakona","01775794472"));
-        prList.add(new PostResponseModel(R.drawable.ahsan_job,"Md Haque","Kalmakanda, Netrakona","01775794472"));
+         prList = new ArrayList<>();
+
+        Call<List<PostResponseModel>> call = api.getMyPostAcceptors(postId);
+
+        call.enqueue(new Callback<List<PostResponseModel>>() {
+            @Override
+            public void onResponse(Call<List<PostResponseModel>> call, Response<List<PostResponseModel>> response) {
+                if(response.body()!=null){
+
+                    prList = response.body();
+
+                }else{
+
+                    Toast.makeText(context, "No response found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PostResponseModel>> call, Throwable t) {
+
+                Toast.makeText(context, t.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
         ImageView cancelBtn = dialog.findViewById(R.id.post_response_cancel_btn_id);
         RecyclerView postRespRecycler = dialog.findViewById(R.id.post_response_recycler_view_id);
@@ -117,7 +150,29 @@ public class MyPostReqRecyclerAdapter extends RecyclerView.Adapter<MyPostReqView
             @Override
             public void onClick(View v) {
 
+                Call<ResponseBody> call = api.donationCompletePost(postId,"donated");
 
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if(response.body()!=null){
+
+                            if(response.body().toString().equals("donated")){
+
+                                DonateCompltTxtBtn.setEnabled(false);
+                            }
+
+                            Toast.makeText(context, response.body().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        Toast.makeText(context, t.toString(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
 
 
             }

@@ -2,6 +2,9 @@ package com.example.bloodbank;
 
 import androidx.appcompat.app.AppCompatActivity;
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bloodbank.Api.Api;
+import com.example.bloodbank.Models.LoginResponse;
+import com.example.bloodbank.Models.LoginUser;
 import com.rey.material.widget.CheckBox;
 
 public class LoginActivity extends AppCompatActivity {
@@ -24,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextView adminText, notAdminText;
     private TextView adminLoginBtn;
     private String adminUserString = "user";
+    private Api api;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,35 +126,65 @@ public class LoginActivity extends AppCompatActivity {
     private void login( final String number, final  String password) {
 
         if (rememberChecker.isChecked()) {
-            Paper.book().write(Prevalent.userPhnKey, number);
+            Paper.book().write(Prevalent.userPhnKey, "+88"+number);
             Paper.book().write(Prevalent.userPassKey, password);
 
         }
-        String userMobile = "01775794472";
-        String userPass = "mymensingh";
 
-        if (userMobile.equals(number)) {
+        LoginUser user = new LoginUser();
 
-            if (userPass.equals(password)) {
+        user.setMobile("+88"+number);
+        user.setPassword(password);
 
-                Toast.makeText(getApplicationContext(), "Login Successful.", Toast.LENGTH_SHORT).show();
-                loadingBar.dismiss();
+        Call<LoginResponse>  loginCall = api.loginUser(user);
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }else {
+        loginCall.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                Toast.makeText(getApplicationContext(),"Password is incorrect.",Toast.LENGTH_SHORT).show();
-                loadingBar.dismiss();
+                LoginResponse loginResponse = response.body();
+
+                if(loginResponse!=null){
+                    if(!loginResponse.toString().equals("failed")){
+                        loadingBar.dismiss();
+                        Paper.book().write(Permanent.uid,loginResponse.getUserId());
+                        Paper.book().write(Permanent.userName,loginResponse.getUserName());
+                        Paper.book().write(Permanent.days,loginResponse.getDays());
+                        Paper.book().write(Permanent.sameBlood,loginResponse.getSameBlood());
+                        Paper.book().write(Permanent.image,loginResponse.getImage());
+                        Paper.book().write(Permanent.gender,loginResponse.getGender());
+                        Paper.book().write(Permanent.policeStation,loginResponse.getPoliceStation());
+                        Paper.book().write(Permanent.district,loginResponse.getDistrict());
+                        Paper.book().write(Permanent.detailsAbout,loginResponse.getDetails());
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }else{
+                        loadingBar.dismiss();
+                        Toast.makeText(LoginActivity.this, "Incorrect mobile or password", Toast.LENGTH_SHORT).show();
+
+                    }
+
+
+                }else {
+                    loadingBar.dismiss();
+                    Toast.makeText(getApplicationContext(),"Response is null !!",Toast.LENGTH_LONG).show();
+
+                }
+
+
 
             }
-        } else {
 
-            Toast.makeText(getApplicationContext(),"Account with this number "+number+" does not exist",Toast.LENGTH_SHORT).show();
-            loadingBar.dismiss();
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                loadingBar.dismiss();
+                Toast.makeText(LoginActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
 
-        }
+            }
+        });
+
 
     }
 
@@ -180,6 +218,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
+
 
 
 

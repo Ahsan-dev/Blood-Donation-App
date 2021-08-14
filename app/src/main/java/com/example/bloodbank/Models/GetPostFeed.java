@@ -2,7 +2,7 @@ package com.example.bloodbank.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MyPostRequestsModel {
+public class GetPostFeed {
 
     @SerializedName("id")
 
@@ -46,12 +46,22 @@ public class MyPostRequestsModel {
     @SerializedName("updated_at")
 
     private String updatedAt;
+    @SerializedName("user_name")
 
+    private String userName;
+    @SerializedName("image")
 
-    public MyPostRequestsModel() {
+    private String image;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public GetPostFeed() {
     }
 
-    public MyPostRequestsModel(Integer id, Integer userId, String details, String bloodGrp, String relation, String policeStation, String hospital, String district, String mobile, String date, String timeFrame, String status, String createdAt, String updatedAt) {
+
+    public GetPostFeed(Integer id, Integer userId, String details, String bloodGrp, String relation, String policeStation, String hospital, String district, String mobile, String date, String timeFrame, String status, String createdAt, String updatedAt, String userName, String image) {
         super();
         this.id = id;
         this.userId = userId;
@@ -67,6 +77,8 @@ public class MyPostRequestsModel {
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.userName = userName;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -180,4 +192,21 @@ public class MyPostRequestsModel {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
 }
