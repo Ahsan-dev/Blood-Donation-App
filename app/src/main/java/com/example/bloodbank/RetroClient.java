@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetroClient {
 
-    private static final String BASE_URL = "http://localhost:8000/";
+    private static final String BASE_URL = "http://127.0.0.1:8000/";
     private static RetroClient mInstance;
     private static Retrofit retrofit;
 

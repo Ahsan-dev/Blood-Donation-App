@@ -164,6 +164,8 @@ public class RegisterDetailsActivity extends AppCompatActivity {
                             try {
                                 r = response.body().toString();
 
+
+
                                 if(r.equals("Registered")){
                                     loadingBar.dismiss();
                                     Toast.makeText(getApplicationContext(),r,Toast.LENGTH_LONG).show();
@@ -178,7 +180,7 @@ public class RegisterDetailsActivity extends AppCompatActivity {
                                 }else{
                                     loadingBar.dismiss();
                                     Toast.makeText(RegisterDetailsActivity.this, r, Toast.LENGTH_SHORT).show();
-                                    Intent regiIntent = new Intent(getApplicationContext(),RegisterActivity.class);
+                                    Intent regiIntent = new Intent(RegisterDetailsActivity.this,RegisterActivity.class);
                                     regiIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(regiIntent);
                                 }
