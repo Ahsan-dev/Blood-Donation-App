@@ -38,6 +38,8 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+        api = RetroClient.getClient().create(Api.class);
+
         logOutBtn = findViewById(R.id.admin_dashboard_logout_btn_id);
 
         logOutBtn.setOnClickListener(new View.OnClickListener() {
@@ -57,9 +59,15 @@ public class AdminActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<AdminDateAssignModel>>() {
             @Override
             public void onResponse(Call<List<AdminDateAssignModel>> call, Response<List<AdminDateAssignModel>> response) {
-                if(response.body()!=null){
+                if(response.isSuccessful()){
 
                     dateAssList = response.body();
+                    assignAdapter = new AdminDateAssignAdapter(dateAssList,AdminActivity.this);
+                    assignDateRecycler.setLayoutManager(new LinearLayoutManager(AdminActivity.this));
+                    assignDateRecycler.hasFixedSize();
+                    assignDateRecycler.setAdapter(assignAdapter);
+                    assignAdapter.notifyDataSetChanged();
+
                 }else {
 
                     Toast.makeText(AdminActivity.this, "Response Not Found", Toast.LENGTH_SHORT).show();
@@ -69,7 +77,7 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<AdminDateAssignModel>> call, Throwable t) {
 
-                Toast.makeText(AdminActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -77,9 +85,7 @@ public class AdminActivity extends AppCompatActivity {
 
 
 
-        assignAdapter = new AdminDateAssignAdapter(dateAssList,this);
-        assignDateRecycler.setLayoutManager(new LinearLayoutManager(this));
-        assignDateRecycler.setAdapter(assignAdapter);
+
 
     }
 

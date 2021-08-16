@@ -1,5 +1,6 @@
 package com.example.bloodbank.Api;
 
+import com.example.bloodbank.Models.ActivityLogModel;
 import com.example.bloodbank.Models.AdminDateAssignModel;
 import com.example.bloodbank.Models.GetPostFeed;
 import com.example.bloodbank.Models.HistoryModel;
@@ -8,6 +9,7 @@ import com.example.bloodbank.Models.LoginUser;
 import com.example.bloodbank.Models.MyPostRequestsModel;
 import com.example.bloodbank.Models.PostResponseModel;
 import com.example.bloodbank.Models.WritePost;
+import com.example.bloodbank.Models.WritePostRespose;
 
 
 import java.util.List;
@@ -57,6 +59,16 @@ public interface Api {
     @POST("writepost")
     Call<ResponseBody> writePost(@Body WritePost postRequired);
 
+    @FormUrlEncoded
+    @POST("getactivity")
+    Call<List<ActivityLogModel>> getActivity(
+
+            @Field("id") int id
+
+    );
+
+
+    @FormUrlEncoded
     @POST("getmyposts")
     Call<List<MyPostRequestsModel>> getMyPosts(
 
@@ -64,6 +76,7 @@ public interface Api {
 
     );
 
+    @FormUrlEncoded
     @POST("getmyacceptors")
     Call<List<PostResponseModel>> getMyPostAcceptors(
 
@@ -71,12 +84,14 @@ public interface Api {
 
     );
 
+    @FormUrlEncoded
     @POST("donationcomplete")
     Call<ResponseBody> donationCompletePost(
             @Field("post_id") int post_id,
             @Field("status") String status
             );
 
+    @FormUrlEncoded
     @POST("getdonationhistory")
     Call<List<HistoryModel>> getDonationHistory(
 
@@ -84,6 +99,7 @@ public interface Api {
 
     );
 
+    @FormUrlEncoded
     @POST("getservicetakenhistory")
     Call<List<HistoryModel>> getServiceTakenHistory(
 
@@ -94,18 +110,21 @@ public interface Api {
     @GET("postsadmintosign")
     Call<List<AdminDateAssignModel>> postsAdminToSign();
 
+    @FormUrlEncoded
     @POST("admindateassign")
     Call<ResponseBody> adminDateAssign(
             @Field("donate_id") int donate_id,
             @Field("date") String date
     );
 
+    @FormUrlEncoded
     @POST("donateconfirm")
     Call<ResponseBody> donateConfirm(
             @Field("donate_id") int donate_id,
             @Field("status") String status
     );
 
+    @FormUrlEncoded
     @POST("acceptpost")
     Call<ResponseBody> acceptPost(
             @Field("post_id") int post_id,

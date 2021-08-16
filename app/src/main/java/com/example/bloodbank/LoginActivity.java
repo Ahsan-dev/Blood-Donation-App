@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        api = RetroClient.getClient().create(Api.class);
 
         mobileEdt = findViewById(R.id.login_phn_numberEdtId);
         passEdt = findViewById(R.id.login_passwordrEdtId);
@@ -147,15 +150,20 @@ public class LoginActivity extends AppCompatActivity {
                 if(loginResponse!=null){
                     if(!loginResponse.toString().equals("failed")){
                         loadingBar.dismiss();
+
+                        String bg = loginResponse.getBloodGroup();
                         Paper.book().write(Permanent.uid,loginResponse.getUserId());
                         Paper.book().write(Permanent.userName,loginResponse.getUserName());
                         Paper.book().write(Permanent.days,loginResponse.getDays());
+                        Paper.book().write(Permanent.bloodGrp,bg);
                         Paper.book().write(Permanent.sameBlood,loginResponse.getSameBlood());
                         Paper.book().write(Permanent.image,loginResponse.getImage());
                         Paper.book().write(Permanent.gender,loginResponse.getGender());
                         Paper.book().write(Permanent.policeStation,loginResponse.getPoliceStation());
                         Paper.book().write(Permanent.district,loginResponse.getDistrict());
                         Paper.book().write(Permanent.detailsAbout,loginResponse.getDetails());
+
+                        Log.d("bg",bg);
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);

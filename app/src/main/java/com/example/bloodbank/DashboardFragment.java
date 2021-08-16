@@ -15,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,19 +33,22 @@ import com.example.bloodbank.Api.Api;
 import com.example.bloodbank.Models.GetPostFeed;
 import com.example.bloodbank.Models.RequestsItemsModel;
 import com.example.bloodbank.Models.WritePost;
+import com.example.bloodbank.Models.WritePostRespose;
+import com.example.bloodbank.NatworkTool.NoConnectivityException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
      List<RequestsItemsModel> reqLists;
-     List<GetPostFeed> postList;
+     private List<GetPostFeed> postList;
      private RecyclerView reqRecycler;
      private RequestsRecyclerAdapter reqRecyclerAdapter;
-     private TextView postNowBtn, checkPostsBtn, daysTxt, bloodGrpTxt, sameBloodTxt;
+     private TextView postNowBtn, checkPostsBtn, daysTxt, bloodGrpTxt, sameBloodTxt, daysAgoTxt, donateAdviceTxt;
      private View view;
-     private Api api;
+     private Api api, api2;
      private ProgressDialog loadingBar;
 
 
@@ -55,29 +59,53 @@ public class DashboardFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         loadingBar = new ProgressDialog(view.getContext());
+        api = RetroClient.getClient().create(Api.class);
 
         daysTxt = view.findViewById(R.id.dashboard_days_txt_id);
         bloodGrpTxt = view.findViewById(R.id.dashboard_blood_group_txt_id);
         sameBloodTxt = view.findViewById(R.id.dashboard_same_blood_txt_id);
-
+        daysAgoTxt = view.findViewById(R.id.dashboard_days_ago_text_id);
+        donateAdviceTxt = view.findViewById(R.id.dashboard_donate_advice_txt_id);
+        reqRecycler = view.findViewById(R.id.requests_recycler_id);
         Paper.init(view.getContext());
 
-        daysTxt.setText(Paper.book().read(Permanent.days));
-        bloodGrpTxt.setText(Paper.book().read(Permanent.bloodGrp));
-        sameBloodTxt.setText(Paper.book().read(Permanent.sameBlood));
+
+        int daysAgo = Paper.book().read(Permanent.days);
+
+        if(daysAgo < 0){
+
+            daysTxt.setText("No Donation History");
+            daysAgoTxt.setVisibility(View.GONE);
+
+
+        }else if(daysAgo==0){
+
+            daysTxt.setText("Donated very recently");
+            daysAgoTxt.setVisibility(View.GONE);
+
+        }else{
+
+            daysTxt.setText(String.valueOf(daysAgo));
+            daysAgoTxt.setVisibility(View.VISIBLE);
+        }
+
+        if(daysAgo>=0 && daysAgo<92 ){
+            donateAdviceTxt.setText("You can not donate now");
+            donateAdviceTxt.setTextColor(getResources().getColor(R.color.light_red));
+
+        }else{
+            donateAdviceTxt.setText("You can donate now");
+            donateAdviceTxt.setTextColor(getResources().getColor(R.color.light_green));
+
+        }
+
+
+        String bg = Paper.book().read(Permanent.bloodGrp);
+        bloodGrpTxt.setText(bg);
+        sameBloodTxt.setText(Paper.book().read(Permanent.sameBlood).toString());
 
 
         reqLists = new ArrayList<>();
-
-        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",true,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
-        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",false,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
-        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",true,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
-        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",false,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
-        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",true,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
-        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",false,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
-        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",true,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
-        reqLists.add(new RequestsItemsModel(R.drawable.ahsan_job,"Md Ahsanul Haque","O(Positive)","Netrakona","Netrakona Hospital",false,"Blood is needed for a patient of operation. Please come and help.","+8801775794472"));
-
 
 
 
@@ -98,6 +126,33 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+
+
+        postList = new ArrayList<>();
+
+        api.getPostFeed().enqueue(new Callback<List<GetPostFeed>>() {
+            @Override
+            public void onResponse(Call<List<GetPostFeed>> call, Response<List<GetPostFeed>> response) {
+                if(response.isSuccessful()){
+
+                    postList = response.body();
+                    reqRecyclerAdapter = new RequestsRecyclerAdapter(postList,view.getContext());
+                    reqRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                    //reqRecycler.hasFixedSize();
+                    reqRecycler.setAdapter(reqRecyclerAdapter);
+                    reqRecyclerAdapter.notifyDataSetChanged();
+                    Log.d("postresponse",response.body().toString());
+                }else{
+                    Toast.makeText(view.getContext(), response.code()+"00", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<GetPostFeed>> call, Throwable t) {
+                Toast.makeText(view.getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
     }
 
@@ -106,34 +161,6 @@ public class DashboardFragment extends Fragment {
         super.onResume();
 
 
-
-        Call<List<GetPostFeed>> call = api.getPostFeed();
-
-        call.enqueue(new Callback<List<GetPostFeed>>() {
-            @Override
-            public void onResponse(Call<List<GetPostFeed>> call, Response<List<GetPostFeed>> response) {
-
-                if(response!=null){
-
-                    postList = response.body();
-                }else{
-                    Toast.makeText(view.getContext(), "Response Empty", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<GetPostFeed>> call, Throwable t) {
-
-                Toast.makeText(view.getContext(), t.toString(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        reqRecycler = view.findViewById(R.id.requests_recycler_id);
-        reqRecyclerAdapter = new RequestsRecyclerAdapter(postList,view.getContext());
-        reqRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        reqRecycler.setAdapter(reqRecyclerAdapter);
 
 
     }
@@ -247,45 +274,59 @@ public class DashboardFragment extends Fragment {
 
                     WritePost post = new WritePost();
 
-                    post.setUserId(Paper.book().read(Permanent.uid));
+                    int id = Paper.book().read(Permanent.uid);
+                    post.setUserId(id);
                     post.setDetails(details);
                     post.setBloodGrp(bloodGrp);
+                    post.setRelation(relation);
                     post.setPoliceStation(policeStation);
+                    post.setHospital(hospital);
                     post.setDistrict(district);
                     post.setMobile("+88"+mobile);
                     post.setDate(date);
                     post.setTimeFrame(hours);
                     post.setStatus("pending");
 
-                    Call<ResponseBody> call = api.writePost(post);
 
-                    call.enqueue(new Callback<ResponseBody>() {
+
+                 api.writePost(post).enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            if(response.body()!=null){
+                            if(response.isSuccessful()){
 
-                                if(response.body().toString().equals("posted")){
-                                    dialog.dismiss();
-                                    Toast.makeText(view.getContext(), "Posted Successfully", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    dialog.dismiss();
-                                    Toast.makeText(view.getContext(), "Failed! Try again..", Toast.LENGTH_SHORT).show();
+
+                                try {
+                                    if(response.body().string().equals("posted")){
+                                        loadingBar.dismiss();
+                                        Toast.makeText(view.getContext(), "Posted Successfully", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        loadingBar.dismiss();
+                                        Toast.makeText(view.getContext(), "Failed! Try again..", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
+                                    loadingBar.dismiss();
+                                    e.printStackTrace();
                                 }
+
+                            }else {
+                                Log.d("check",response.code()+" ");
+                                loadingBar.dismiss();
+                                Toast.makeText(view.getContext(), "Response not found!!", Toast.LENGTH_SHORT).show();
+
 
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            dialog.dismiss();
-                            Toast.makeText(view.getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+
+                            loadingBar.dismiss();
+                            Toast.makeText(view.getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
 
                         }
                     });
 
-
-                    Toast.makeText(view.getContext(), "Posted successfully", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
                 }
 
 

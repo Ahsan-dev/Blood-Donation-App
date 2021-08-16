@@ -42,6 +42,8 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
         Paper.init(view.getContext());
 
+        api = RetroClient.getClient().create(Api.class);
+
         donateLinear = view.findViewById(R.id.history_fragment_donation_linear_id);
         donateText = view.findViewById(R.id.history_fragment_donation_text_id);
         donateLine = view.findViewById(R.id.history_fragment_donation_line_id);
@@ -89,6 +91,9 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
                     if(response.body()!=null){
 
                         donateList = response.body();
+                        hisResAdapter = new HistoryRecyclerAdapter(donateList,v.getContext());
+                        hisRecycler.setAdapter(hisResAdapter);
+                        hisResAdapter.notifyDataSetChanged();
 
                     }else{
 
@@ -106,8 +111,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
             });
 
 
-            hisResAdapter = new HistoryRecyclerAdapter(donateList,v.getContext());
-            hisRecycler.setAdapter(hisResAdapter);
+
 
 
 
@@ -131,6 +135,9 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
                     if(response.body()!=null){
 
                         serviceTakenList = response.body();
+                        hisResAdapter = new HistoryRecyclerAdapter(serviceTakenList,v.getContext());
+                        hisRecycler.setAdapter(hisResAdapter);
+                        hisResAdapter.notifyDataSetChanged();
 
                     }else{
 
@@ -147,8 +154,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
                 }
             });
 
-            hisResAdapter = new HistoryRecyclerAdapter(serviceTakenList,v.getContext());
-            hisRecycler.setAdapter(hisResAdapter);
+
 
         }
 

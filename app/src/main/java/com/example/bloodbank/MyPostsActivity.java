@@ -38,7 +38,7 @@ public class MyPostsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_posts);
 
-
+        api = RetroClient.getClient().create(Api.class);
         myPostToolbar = findViewById(R.id.my_all_post_toolbar_id);
         myPostBackBtn = findViewById(R.id.savings_account_back_button);
         setSupportActionBar(myPostToolbar);
@@ -51,15 +51,21 @@ public class MyPostsActivity extends AppCompatActivity {
         });
 
 
+        api = RetroClient.getClient().create(Api.class);
+
+        Paper.init(this);
+        myPostsRecycler = findViewById(R.id.my_posts_recyclerview);
+        myPostReqList = new ArrayList<>();
+
+
+
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        Paper.init(this);
-        myPostsRecycler = findViewById(R.id.my_posts_recyclerview);
-        myPostReqList = new ArrayList<>();
 
         Call<List<MyPostRequestsModel>> call = api.getMyPosts(Paper.book().read(Permanent.uid));
 
@@ -67,9 +73,14 @@ public class MyPostsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<MyPostRequestsModel>> call, Response<List<MyPostRequestsModel>> response) {
 
-                if(response.body()!=null){
+                if(response.isSuccessful()){
 
                     myPostReqList = response.body();
+                    myPostAdapter = new MyPostReqRecyclerAdapter(myPostReqList,MyPostsActivity.this);
+                    myPostsRecycler.setLayoutManager(new LinearLayoutManager(MyPostsActivity.this));
+                    myPostsRecycler.hasFixedSize();
+                    myPostsRecycler.setAdapter(myPostAdapter);
+                    myPostAdapter.notifyDataSetChanged();
 
                 }else {
 
@@ -87,9 +98,6 @@ public class MyPostsActivity extends AppCompatActivity {
             }
         });
 
-        myPostAdapter = new MyPostReqRecyclerAdapter(myPostReqList,this);
 
-        myPostsRecycler.setLayoutManager(new LinearLayoutManager(this));
-        myPostsRecycler.setAdapter(myPostAdapter);
     }
 }

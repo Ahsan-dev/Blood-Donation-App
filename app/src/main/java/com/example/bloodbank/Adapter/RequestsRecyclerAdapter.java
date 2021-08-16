@@ -16,10 +16,16 @@ import com.example.bloodbank.Models.GetPostFeed;
 import com.example.bloodbank.Models.RequestsItemsModel;
 import com.example.bloodbank.Permanent;
 import com.example.bloodbank.R;
+import com.example.bloodbank.RetroClient;
 import com.example.bloodbank.ViewHolder.RequestsItemViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -72,17 +78,51 @@ public class RequestsRecyclerAdapter extends RecyclerView.Adapter<RequestsItemVi
 
 
         Paper.init(context);
-        int days = Paper.book().read(Permanent.days);
+        int daysAgo = Paper.book().read(Permanent.days);
 
-        if(days<92){
+        if(daysAgo>=0 && daysAgo<92 ){
 
             holder.reqYesImBtn.setEnabled(false);
         }else {
             holder.reqYesImBtn.setEnabled(true);
         }
 
+        int acceptors = Integer.parseInt(reqModel.getAcceptors());
+
+        if(acceptors>3){
+
+            holder.reqYesImBtn.setEnabled(false);
+        }else{
+            holder.reqYesImBtn.setEnabled(true);
+        }
+
         String hours = reqModel.getTimeFrame();
-        int hour = Integer.parseInt(hours);
+        int ihour = Integer.parseInt(hours);
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+        SimpleDateFormat sdf
+                = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+        long Hours = 0;
+
+        try {
+            Date  d1 = sdf.parse(String.valueOf(timestamp));
+            Date d2 = sdf.parse(reqModel.getCreatedAt());
+
+            long difference_In_Time = d2.getTime() - d1.getTime();
+             Hours = (difference_In_Time / (1000 * 60 * 60)) % 24;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        int tHours = (int) Hours;
+
+        int hour = ihour - tHours;
+
+
+
         holder.reqEmergencyImg.setVisibility(hour<=24? View.VISIBLE:View.GONE);
         holder.reqWhiteLine.setBackgroundResource(hour<=24? R.color.white: R.color.light_gray);
 
@@ -125,6 +165,7 @@ public class RequestsRecyclerAdapter extends RecyclerView.Adapter<RequestsItemVi
         holder.reqYesImBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                api = RetroClient.getClient().create(Api.class);
 
                 Paper.init(v.getContext());
                 Call<ResponseBody> call = api.acceptPost(postId, Paper.book().read(Permanent.uid),"accepted","");
@@ -132,13 +173,21 @@ public class RequestsRecyclerAdapter extends RecyclerView.Adapter<RequestsItemVi
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if(response!=null){
+                        if(response.isSuccessful()){
 
-                            if(response.body().toString().equals("accepted")){
-
-                                holder.reqYesImBtn.setEnabled(false);
+                            try {
+                                if(response.body().string().equals("accepted")){
+                                    Toast.makeText(context, "You have accepted to donate blood..", Toast.LENGTH_SHORT).show();
+                                    holder.reqYesImBtn.setEnabled(false);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
+
+                        }else{
+
                             Toast.makeText(v.getContext(), "Response Not Found", Toast.LENGTH_SHORT).show();
+
                         }
                     }
 

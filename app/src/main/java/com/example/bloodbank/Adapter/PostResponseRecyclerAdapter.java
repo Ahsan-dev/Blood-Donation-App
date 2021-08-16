@@ -14,10 +14,12 @@ import android.widget.Toast;
 import com.example.bloodbank.Api.Api;
 import com.example.bloodbank.Models.PostResponseModel;
 import com.example.bloodbank.R;
+import com.example.bloodbank.RetroClient;
 import com.example.bloodbank.ViewHolder.PostResponseViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -60,6 +62,8 @@ public class PostResponseRecyclerAdapter extends RecyclerView.Adapter<PostRespon
         holder.responseNameTxt.setText(prModel.getUserName());
         holder.responseMobileTxt.setText(prModel.getMobile());
 
+        donateId = prModel.getId();
+
         String phn = "tel:"+prModel.getMobile();
         holder.responseCallTxtBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,15 +88,21 @@ public class PostResponseRecyclerAdapter extends RecyclerView.Adapter<PostRespon
             @Override
             public void onClick(View v) {
 
+                api = RetroClient.getClient().create(Api.class);
+
                 Call<ResponseBody> call = api.donateConfirm(donateId,"donated");
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if(response!=null){
-                            if(response.body().toString().equals("donated")){
+                        if(response.isSuccessful()){
+                            try {
+                                if(response.body().string().equals("donated")){
 
-                                holder.responseDonationCompletionTxtBtn.setEnabled(false);
+                                    holder.responseDonationCompletionTxtBtn.setEnabled(false);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
 
                             Toast.makeText(context, response.body().toString(), Toast.LENGTH_SHORT).show();

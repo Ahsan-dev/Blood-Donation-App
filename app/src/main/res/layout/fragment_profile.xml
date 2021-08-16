@@ -16,7 +16,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            >
 
             <TextView
                 android:id="@+id/profile_fragment_logout_btn_id"
@@ -252,7 +254,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/profile_fragment_activity_log_recycler_id"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:nestedScrollingEnabled="false"
                         android:layout_marginTop="8dp" />
 

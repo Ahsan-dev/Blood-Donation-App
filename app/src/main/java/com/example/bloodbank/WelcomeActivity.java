@@ -29,6 +29,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        api = RetroClient.getClient().create(Api.class);
+
         registerBtn = findViewById(R.id.welcome_register_buttonId);
         loginBtn = findViewById(R.id.welcome_login_buttonId);
 
@@ -76,7 +78,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
         LoginUser user = new LoginUser();
-        user.setMobile("+88"+number);
+        user.setMobile(number);
         user.setPassword(password);
         Call<LoginResponse> loginCall = api.loginUser(user);
 
@@ -86,7 +88,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 LoginResponse loginResponse = response.body();
                 if(loginResponse!=null){
-                    if(!loginResponse.toString().equals("failed")){
+                    if(!response.body().toString().equals("failed")){
                         loadingBar.dismiss();
                         Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);

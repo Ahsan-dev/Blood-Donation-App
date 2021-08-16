@@ -22,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Spinner bloodGrpSpinner, religionSpinner, genderSpinner;
     private ArrayAdapter<String> bloodGrpAdapter, religionAdapter, genderAdapter;
     private String[] bloodGrparray, religionArray, genderArray;
-    private String userName, mobile, altMobile, email, city, district, policeStation, bloodGrp, religion, gender, weight;
+    private String userName, mobile, altMobile, email, city, district, policeStation, bloodGrp, religion, gender, weight, dob;
     private Button nextBtn;
     private TextView dobTxt;
     private ImageView dobBtn;
@@ -82,85 +82,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void validateFields(){
-
-        userName = userNameEdt.getText().toString();
-        mobile = mobileEdt.getText().toString();
-        altMobile = altMobileEdt.getText().toString();
-        email = emailEdt.getText().toString();
-        city = cityEdt.getText().toString();
-        district = districtEdt.getText().toString();
-        policeStation = policeStationEdt.getText().toString();
-        bloodGrp = bloodGrpSpinner.getSelectedItem().toString();
-        religion = religionSpinner.getSelectedItem().toString();
-        gender =  genderSpinner.getSelectedItem().toString();
-        weight = weightEdt.getText().toString();
-
-        if(userName.equals("")){
-            userNameEdt.setError("Enter a details");
-            userNameEdt.requestFocus();
-            return;
-        }else if(mobile.equals("") || mobile.length()<11){
-            mobileEdt.setError("Enter mobile number of 11 digits");
-            mobileEdt.requestFocus();
-            return;
-        }else if(altMobile.equals("")|| altMobile.length()<11){
-            altMobileEdt.setError("Enter alternative mobile number of 11 digits");
-            altMobileEdt.requestFocus();
-            return;
-        }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailEdt.setError("Enter your email");
-            emailEdt.requestFocus();
-            return;
-        }else if(bloodGrp.equals("--Select Your Blood Group--")) {
-            Toast.makeText(this, "Select blood group", Toast.LENGTH_SHORT).show();
-            bloodGrpSpinner.requestFocus();
-            return;
-        }else if(religion.equals("--Select Your Religion--")){
-            Toast.makeText(this, "Select religion", Toast.LENGTH_SHORT).show();
-            religionSpinner.requestFocus();
-            return;
-        }else if(gender.equals("--Select Your Gender--")){
-            Toast.makeText(this, "Select Gender", Toast.LENGTH_SHORT).show();
-            genderSpinner.requestFocus();
-            return;
-        }else if(city.equals("")){
-            cityEdt.setError("Enter your city/division");
-            cityEdt.requestFocus();
-            return;
-        }else if(district.equals("")){
-            districtEdt.setError("Enter your district");
-            districtEdt.requestFocus();
-            return;
-        }else if(policeStation.equals("")){
-            policeStationEdt.setError("Enter your police station");
-            policeStationEdt.requestFocus();
-            return;
-        }else{
-
-            Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
-            Intent registerImgIntent = new Intent(getApplicationContext(),RegisterImageActivity.class);
-
-            registerImgIntent.putExtra("user_name",userName);
-            registerImgIntent.putExtra("mobile","+88"+mobile);
-            registerImgIntent.putExtra("alt_mobile",altMobile);
-            registerImgIntent.putExtra("email",email);
-            registerImgIntent.putExtra("blood_group",bloodGrp);
-            registerImgIntent.putExtra("religion",religion);
-            registerImgIntent.putExtra("gender",gender);
-            registerImgIntent.putExtra("division",city);
-            registerImgIntent.putExtra("district",district);
-            registerImgIntent.putExtra("police_station",policeStation);
-            registerImgIntent.putExtra("weight",weight);
-            registerImgIntent.putExtra("birth_date",dobString.toString());
-
-            startActivity(registerImgIntent);
-
-        }
-
-
-    }
-
     private void dobMaker() {
 
         DatePicker datePicker = new DatePicker(this);
@@ -190,4 +111,83 @@ public class RegisterActivity extends AppCompatActivity {
         dobPicker.show();
 
     }
+
+    private void validateFields(){
+
+        userName = userNameEdt.getText().toString();
+        mobile = mobileEdt.getText().toString();
+        altMobile = altMobileEdt.getText().toString();
+        email = emailEdt.getText().toString();
+        bloodGrp = bloodGrpSpinner.getSelectedItem().toString();
+        religion = religionSpinner.getSelectedItem().toString();
+        gender =  genderSpinner.getSelectedItem().toString();
+        city = cityEdt.getText().toString();
+        district = districtEdt.getText().toString();
+        policeStation = policeStationEdt.getText().toString();
+        weight = weightEdt.getText().toString();
+        dob = dobString.toString();
+
+        if(userName.equals("")){
+            userNameEdt.setError("Enter a details");
+            userNameEdt.requestFocus();
+            return;
+        }else if(mobile.equals("") || mobile.length()<11){
+            mobileEdt.setError("Enter mobile number of 11 digits");
+            mobileEdt.requestFocus();
+            return;
+        }else if(altMobile.equals("")|| altMobile.length()<11){
+            altMobileEdt.setError("Enter alternative mobile number of 11 digits");
+            altMobileEdt.requestFocus();
+            return;
+        }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            emailEdt.setError("Enter your email");
+            emailEdt.requestFocus();
+            return;
+        }else if(bloodGrp.equals("--Select Your Blood Group--")) {
+            Toast.makeText(this, "Select blood group", Toast.LENGTH_SHORT).show();
+
+        }else if(religion.equals("--Select Your Religion--")){
+            Toast.makeText(this, "Select religion", Toast.LENGTH_SHORT).show();
+
+        }else if(gender.equals("--Select Your Gender--")){
+            Toast.makeText(this, "Select Gender", Toast.LENGTH_SHORT).show();
+
+        }else if(city.equals("")){
+            cityEdt.setError("Enter your city/division");
+            cityEdt.requestFocus();
+            return;
+        }else if(district.equals("")){
+            districtEdt.setError("Enter your district");
+            districtEdt.requestFocus();
+            return;
+        }else if(policeStation.equals("")){
+            policeStationEdt.setError("Enter your police station");
+            policeStationEdt.requestFocus();
+            return;
+        }else{
+
+            Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
+            Intent registerImgIntent = new Intent(getApplicationContext(),RegisterImageActivity.class);
+
+            registerImgIntent.putExtra("user_name",userName);
+            registerImgIntent.putExtra("mobile","+88"+mobile);
+            registerImgIntent.putExtra("alt_mobile",altMobile);
+            registerImgIntent.putExtra("email",email);
+            registerImgIntent.putExtra("blood_group",bloodGrp);
+            registerImgIntent.putExtra("religion",religion);
+            registerImgIntent.putExtra("gender",gender);
+            registerImgIntent.putExtra("division",city);
+            registerImgIntent.putExtra("district",district);
+            registerImgIntent.putExtra("police_station",policeStation);
+            registerImgIntent.putExtra("weight",weight);
+            registerImgIntent.putExtra("birth_date",dob);
+
+            startActivity(registerImgIntent);
+
+        }
+
+
+    }
+
+
 }

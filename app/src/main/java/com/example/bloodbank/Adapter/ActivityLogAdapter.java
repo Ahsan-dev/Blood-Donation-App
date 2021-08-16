@@ -38,9 +38,11 @@ public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogViewHold
 
         ActivityLogModel actModel = actLogList.get(position);
 
-        holder.activityLogDateTxt.setText(actModel.getDate());
-        holder.activityLogTimeTxt.setText(actModel.getTime());
-        holder.activityLogActionTxt.setText(actModel.getAction());
+
+
+        holder.activityLogDateTxt.setText(actModel.getUpdatedAt().substring(0,10));
+        holder.activityLogTimeTxt.setText(actModel.getUpdatedAt().substring(11,16));
+        holder.activityLogActionTxt.setText(actModel.getType());
 
     }
 

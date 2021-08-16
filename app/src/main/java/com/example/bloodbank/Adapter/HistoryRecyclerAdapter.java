@@ -10,6 +10,10 @@ import com.example.bloodbank.Permanent;
 import com.example.bloodbank.R;
 import com.example.bloodbank.ViewHolder.HistoryViewHolder;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -40,9 +44,9 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryViewHold
 
         HistoryModel hisModel = hisList.get(position);
 
-        holder.histYearTxt.setText(hisModel.getUpdatedAt().substring(0,3));
+        holder.histYearTxt.setText(hisModel.getUpdatedAt().substring(0,4));
 
-        int month = Integer.parseInt(hisModel.getUpdatedAt().substring(5,6));
+        int month = Integer.parseInt(hisModel.getUpdatedAt().substring(5,7));
         String mon = "";
 
                 if(month==1) mon = "January";
@@ -59,13 +63,34 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryViewHold
                 else if(month==12) mon = "December";
 
         holder.histMonthTxt.setText(mon);
-        holder.histDateTxt.setText(hisModel.getUpdatedAt().substring(7,8));
+        holder.histDateTxt.setText(hisModel.getUpdatedAt().substring(8,10));
 
         String loc = hisModel.getPoliceStation()+", "+hisModel.getDistrict();
         holder.histLocationTxt.setText(loc);
         holder.histHospitalTxt.setText(hisModel.getHospital());
         holder.histBloodGrpTxt.setText(hisModel.getBloodGrp());
-        holder.histDaysAgoTxt.setText(" "+" Days Ago");
+        int days = 0;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+        SimpleDateFormat sdf
+                = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+        long Hours = 0;
+
+        try {
+            Date d1 = sdf.parse(String.valueOf(timestamp));
+            Date d2 = sdf.parse(hisModel.getUpdatedAt());
+
+            long difference_In_Time = d2.getTime() - d1.getTime();
+            long Days = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
+            days = (int) Days;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        holder.histDaysAgoTxt.setText(days+" Days Ago");
 
     }
 

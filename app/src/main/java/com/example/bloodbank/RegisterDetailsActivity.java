@@ -37,12 +37,14 @@ public class RegisterDetailsActivity extends AppCompatActivity {
     String pass, confirmPass;
     private Api api;
     private ProgressDialog loadingBar;
-    String r;
+    String r, fromBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_details);
+
+        api = RetroClient.getClient().create(Api.class);
 
         userName = getIntent().getStringExtra("user_name");
         mobile = getIntent().getStringExtra("mobile");
@@ -56,7 +58,13 @@ public class RegisterDetailsActivity extends AppCompatActivity {
         policeStation = getIntent().getStringExtra("police_station");
         weight = getIntent().getStringExtra("weight");
         birthDay = getIntent().getStringExtra("birth_date");
-        filePath = getIntent().getStringExtra("image");
+
+        fromBtn = getIntent().getStringExtra("fromBtn");
+
+        if(fromBtn.equals("next"))
+            filePath = getIntent().getStringExtra("image");
+        else
+            filePath = "";
 
         detailsEdt = findViewById(R.id.register_details_edt_id);
         termsChecker = findViewById(R.id.register_terms_policy_checker);
@@ -154,17 +162,15 @@ public class RegisterDetailsActivity extends AppCompatActivity {
                     loadingBar.setCanceledOnTouchOutside(false);
                     loadingBar.show();
 
-                    Call<ResponseBody> call =api.insertUser(userName, mobile, altMobile, email, city, district, policeStation, bloodGrp, religion, gender, weight, birthDay,filePath,details,pass);
+                    Call<ResponseBody> call =api.insertUser(userName, mobile, altMobile, email, bloodGrp, religion, gender, city, district, policeStation, weight, birthDay,filePath,details,pass);
 
                     call.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                            assert response.body() != null;
+//                            assert response.body() != null;
                             try {
-                                r = response.body().toString();
-
-
+                                r = response.body().string();
 
                                 if(r.equals("Registered")){
                                     loadingBar.dismiss();

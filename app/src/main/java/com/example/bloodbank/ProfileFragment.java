@@ -10,14 +10,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import io.paperdb.Paper;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bloodbank.Adapter.ActivityLogAdapter;
+import com.example.bloodbank.Adapter.HistoryRecyclerAdapter;
+import com.example.bloodbank.Api.Api;
 import com.example.bloodbank.Models.ActivityLogModel;
 
 import java.io.File;
@@ -32,12 +39,15 @@ public class ProfileFragment extends Fragment {
     private TextView logoutBtn;
     private TextView nameTxt, detailTxt, locationTxt, bloodGrpTxt;
     private ImageView proPicImg;
+    private  Api api;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        api = RetroClient.getClient().create(Api.class);
 
         nameTxt = view.findViewById(R.id.profile_fragment_profile_name_id);
         detailTxt = view.findViewById(R.id.profile_fragment_details_id);
@@ -60,16 +70,37 @@ public class ProfileFragment extends Fragment {
         actLogRecycler = view.findViewById(R.id.profile_fragment_activity_log_recycler_id);
         actList = new ArrayList<>();
 
-        actList.add(new ActivityLogModel("2021/05/17","15:20","donation"));
-        actList.add(new ActivityLogModel("2021/05/18","13:23","log in"));
-        actList.add(new ActivityLogModel("2021/05/19","15:20","log in"));
-        actList.add(new ActivityLogModel("2021/05/17","15:20","donation"));
-        actList.add(new ActivityLogModel("2021/05/18","13:23","log in"));
-        actList.add(new ActivityLogModel("2021/05/19","15:20","log in"));
+        int id = Paper.book().read(Permanent.uid);
 
-        activityLogAdapter = new ActivityLogAdapter(actList,view.getContext());
-        actLogRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        actLogRecycler.setAdapter(activityLogAdapter);
+        api.getActivity(id).enqueue(new Callback<List<ActivityLogModel>>() {
+            @Override
+            public void onResponse(Call<List<ActivityLogModel>> call, Response<List<ActivityLogModel>> response) {
+                if(response.isSuccessful()){
+
+                    actList = response.body();
+                    Toast.makeText(view.getContext(), "Size:"+actList.size(), Toast.LENGTH_SHORT).show();
+                    activityLogAdapter = new ActivityLogAdapter(actList,view.getContext());
+                    actLogRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                    actLogRecycler.hasFixedSize();
+                    actLogRecycler.setAdapter(activityLogAdapter);
+                    activityLogAdapter.notifyDataSetChanged();
+
+
+                }else {
+
+                    Toast.makeText(view.getContext(), "Response not found!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ActivityLogModel>> call, Throwable t) {
+
+                Toast.makeText(view.getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override

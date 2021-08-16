@@ -1,36 +1,90 @@
 package com.example.bloodbank.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ActivityLogModel {
 
-    private String date, time, action;
+    @SerializedName("id")
 
-    public ActivityLogModel(String date, String time, String action) {
-        this.date = date;
-        this.time = time;
-        this.action = action;
+    private Integer id;
+    @SerializedName("user_id")
+
+    private Integer userId;
+    @SerializedName("type")
+
+    private String type;
+    @SerializedName("details")
+
+    private String details;
+    @SerializedName("created_at")
+
+    private String createdAt;
+    @SerializedName("updated_at")
+
+    private String updatedAt;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public ActivityLogModel() {
     }
 
-    public String getDate() {
-        return date;
+    public ActivityLogModel(Integer id, Integer userId, String type, String details, String createdAt, String updatedAt) {
+        super();
+        this.id = id;
+        this.userId = userId;
+        this.type = type;
+        this.details = details;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public Integer getId() {
+        return id;
     }
 
-    public String getTime() {
-        return time;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public String getAction() {
-        return action;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public void setAction(String action) {
-        this.action = action;
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

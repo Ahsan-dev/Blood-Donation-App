@@ -20,8 +20,10 @@ import com.example.bloodbank.Api.Api;
 import com.example.bloodbank.Models.MyPostRequestsModel;
 import com.example.bloodbank.Models.PostResponseModel;
 import com.example.bloodbank.R;
+import com.example.bloodbank.RetroClient;
 import com.example.bloodbank.ViewHolder.MyPostReqViewHolder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
@@ -107,16 +109,26 @@ public class MyPostReqRecyclerAdapter extends RecyclerView.Adapter<MyPostReqView
         dialog.setContentView(R.layout.post_response_layout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
+        ImageView cancelBtn = dialog.findViewById(R.id.post_response_cancel_btn_id);
+        RecyclerView postRespRecycler = dialog.findViewById(R.id.post_response_recycler_view_id);
+        TextView DonateCompltTxtBtn = dialog.findViewById(R.id.post_response_donation_complt_btn_id);
+        TextView deleteTxtBtn = dialog.findViewById(R.id.post_response_delete_post_btn_id);
+
          prList = new ArrayList<>();
+
+        api = RetroClient.getClient().create(Api.class);
 
         Call<List<PostResponseModel>> call = api.getMyPostAcceptors(postId);
 
         call.enqueue(new Callback<List<PostResponseModel>>() {
             @Override
             public void onResponse(Call<List<PostResponseModel>> call, Response<List<PostResponseModel>> response) {
-                if(response.body()!=null){
+                if(response.isSuccessful()){
 
                     prList = response.body();
+                    PostResponseRecyclerAdapter postResponseRecyclerAdapter = new PostResponseRecyclerAdapter(prList,context);
+                    postRespRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                    postRespRecycler.setAdapter(postResponseRecyclerAdapter);
 
                 }else{
 
@@ -127,19 +139,14 @@ public class MyPostReqRecyclerAdapter extends RecyclerView.Adapter<MyPostReqView
             @Override
             public void onFailure(Call<List<PostResponseModel>> call, Throwable t) {
 
-                Toast.makeText(context, t.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
 
 
-        ImageView cancelBtn = dialog.findViewById(R.id.post_response_cancel_btn_id);
-        RecyclerView postRespRecycler = dialog.findViewById(R.id.post_response_recycler_view_id);
-        TextView DonateCompltTxtBtn = dialog.findViewById(R.id.post_response_donation_complt_btn_id);
-        TextView deleteTxtBtn = dialog.findViewById(R.id.post_response_delete_post_btn_id);
-        PostResponseRecyclerAdapter postResponseRecyclerAdapter = new PostResponseRecyclerAdapter(prList,context);
-        postRespRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        postRespRecycler.setAdapter(postResponseRecyclerAdapter);
+
+
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
@@ -149,17 +156,22 @@ public class MyPostReqRecyclerAdapter extends RecyclerView.Adapter<MyPostReqView
         DonateCompltTxtBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                api = RetroClient.getClient().create(Api.class);
 
                 Call<ResponseBody> call = api.donationCompletePost(postId,"donated");
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if(response.body()!=null){
+                        if(response.isSuccessful()){
 
-                            if(response.body().toString().equals("donated")){
+                            try {
+                                if(response.body().string().equals("donated")){
 
-                                DonateCompltTxtBtn.setEnabled(false);
+                                    DonateCompltTxtBtn.setEnabled(false);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
 
                             Toast.makeText(context, response.body().toString(), Toast.LENGTH_SHORT).show();

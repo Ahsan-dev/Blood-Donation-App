@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -82,6 +83,23 @@ public class RegisterImageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent registerDetailsIntent = new Intent(getApplicationContext(),RegisterDetailsActivity.class);
+
+                registerDetailsIntent.putExtra("fromBtn","skip");
+
+                registerDetailsIntent.putExtra("user_name",userName);
+                registerDetailsIntent.putExtra("mobile",mobile);
+                registerDetailsIntent.putExtra("alt_mobile",altMobile);
+                registerDetailsIntent.putExtra("email",email);
+                registerDetailsIntent.putExtra("blood_group",bloodGrp);
+                registerDetailsIntent.putExtra("religion",religion);
+                registerDetailsIntent.putExtra("gender",gender);
+                registerDetailsIntent.putExtra("division",city);
+                registerDetailsIntent.putExtra("district",district);
+                registerDetailsIntent.putExtra("police_station",policeStation);
+                registerDetailsIntent.putExtra("weight",weight);
+                registerDetailsIntent.putExtra("birth_date",birthDay);
+
+
                 startActivity(registerDetailsIntent);
             }
         });
@@ -91,8 +109,9 @@ public class RegisterImageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent registerDetailsIntent = new Intent(getApplicationContext(),RegisterDetailsActivity.class);
 
+                registerDetailsIntent.putExtra("fromBtn","next");
                 registerDetailsIntent.putExtra("user_name",userName);
-                registerDetailsIntent.putExtra("mobile","+88"+mobile);
+                registerDetailsIntent.putExtra("mobile",mobile);
                 registerDetailsIntent.putExtra("alt_mobile",altMobile);
                 registerDetailsIntent.putExtra("email",email);
                 registerDetailsIntent.putExtra("blood_group",bloodGrp);
@@ -148,8 +167,8 @@ public class RegisterImageActivity extends AppCompatActivity {
             switch (requestCode) {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
-                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         Uri selectedImageUri = data.getData();
+                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         capturedImg.setImageBitmap(selectedImage);
                         filePath = getPath(selectedImageUri);
                     }
@@ -169,7 +188,7 @@ public class RegisterImageActivity extends AppCompatActivity {
 
     private String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);

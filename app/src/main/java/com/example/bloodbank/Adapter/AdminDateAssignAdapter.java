@@ -11,10 +11,12 @@ import com.example.bloodbank.Api.Api;
 import com.example.bloodbank.Models.AdminDateAssignModel;
 import com.example.bloodbank.Models.PostResponseModel;
 import com.example.bloodbank.R;
+import com.example.bloodbank.RetroClient;
 import com.example.bloodbank.ViewHolder.AdminAssignDateViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -63,13 +65,19 @@ public class AdminDateAssignAdapter extends RecyclerView.Adapter<AdminAssignDate
             public void onClick(View v) {
                 String date = holder.donateDateEdt.getText().toString();
 
+                api = RetroClient.getClient().create(Api.class);
+
                 Call<ResponseBody> call = api.adminDateAssign(donateId,date);
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if(response!=null){
-                            Toast.makeText(context, response.body().toString(), Toast.LENGTH_SHORT).show();
+                        if(response.isSuccessful()){
+                            try {
+                                Toast.makeText(context, response.body().string(), Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }else {
 
                             Toast.makeText(context, "Response Not Found", Toast.LENGTH_SHORT).show();
@@ -79,7 +87,7 @@ public class AdminDateAssignAdapter extends RecyclerView.Adapter<AdminAssignDate
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                        Toast.makeText(context, t.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                 });

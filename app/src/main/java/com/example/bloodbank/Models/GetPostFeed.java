@@ -40,6 +40,9 @@ public class GetPostFeed {
     @SerializedName("status")
 
     private String status;
+    @SerializedName("acceptors")
+
+    private String acceptors;
     @SerializedName("created_at")
 
     private String createdAt;
@@ -61,7 +64,7 @@ public class GetPostFeed {
     }
 
 
-    public GetPostFeed(Integer id, Integer userId, String details, String bloodGrp, String relation, String policeStation, String hospital, String district, String mobile, String date, String timeFrame, String status, String createdAt, String updatedAt, String userName, String image) {
+    public GetPostFeed(Integer id, Integer userId, String details, String bloodGrp, String relation, String policeStation, String hospital, String district, String mobile, String date, String timeFrame, String status, String acceptors, String createdAt, String updatedAt, String userName, String image) {
         super();
         this.id = id;
         this.userId = userId;
@@ -75,6 +78,7 @@ public class GetPostFeed {
         this.date = date;
         this.timeFrame = timeFrame;
         this.status = status;
+        this.acceptors = acceptors;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.userName = userName;
@@ -177,6 +181,14 @@ public class GetPostFeed {
         this.status = status;
     }
 
+    public String getAcceptors() {
+        return acceptors;
+    }
+
+    public void setAcceptors(String acceptors) {
+        this.acceptors = acceptors;
+    }
+
     public String getCreatedAt() {
         return createdAt;
     }
@@ -208,5 +220,4 @@ public class GetPostFeed {
     public void setImage(String image) {
         this.image = image;
     }
-
 }
