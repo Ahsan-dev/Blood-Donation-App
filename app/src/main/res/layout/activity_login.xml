@@ -78,7 +78,7 @@
 
     <LinearLayout
         android:id="@+id/linearlayoutId"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/login_password_linear_id"
         android:layout_width="match_parent"
@@ -93,7 +93,7 @@
             android:textColor="@color/pink"
             app:cbd_strokeColor="@color/pink"
             android:gravity="center_vertical"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:textAllCaps="false"
             android:layout_marginLeft="15dp"
@@ -104,10 +104,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Forget Password?"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:textColor="@color/light_red"
-            android:layout_marginLeft="80dp"
+            android:layout_gravity="end"
+            android:textColor="@color/light_pink"
+            android:layout_marginRight="50dp"
             />
 
 

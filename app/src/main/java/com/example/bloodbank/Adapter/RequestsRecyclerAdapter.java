@@ -162,6 +162,18 @@ public class RequestsRecyclerAdapter extends RecyclerView.Adapter<RequestsItemVi
             }
         });
 
+        int uid = Paper.book().read(Permanent.uid);
+
+        if(reqModel.getUserId() == uid){
+
+            holder.reqYesImBtn.setEnabled(false);
+
+        }else{
+
+            holder.reqYesImBtn.setEnabled(true);
+
+        }
+
         holder.reqYesImBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
