@@ -10,9 +10,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextView adminLoginBtn;
     private String adminUserString = "user";
     private Api api;
+    private LinearLayout checkLinear;
+    Boolean passEyeState = true;
 
 
     @Override
@@ -41,12 +47,13 @@ public class LoginActivity extends AppCompatActivity {
 
         api = RetroClient.getClient().create(Api.class);
 
-        mobileEdt = findViewById(R.id.login_phn_numberEdtId);
-        passEdt = findViewById(R.id.login_passwordrEdtId);
+        mobileEdt = findViewById(R.id.login_mobile_edt);
+        passEdt = findViewById(R.id.login_pass_edt_id);
         rememberChecker = findViewById(R.id.logIn_remember_checkboxId);
         loginBtn = findViewById(R.id.login_buttonId);
         adminText = findViewById(R.id.admin_panel_text);
         notAdminText = findViewById(R.id.not_admin_panel_text);
+        checkLinear = findViewById(R.id.linearlayoutId);
         adminLoginBtn = findViewById(R.id.login_as_an_admin_buttonId);
 
         adminText.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 adminText.setVisibility(View.GONE);
                 loginBtn.setVisibility(View.GONE);
+                checkLinear.setVisibility(View.GONE);
                 notAdminText.setVisibility(View.VISIBLE);
                 adminLoginBtn.setVisibility(View.VISIBLE);
                 adminUserString = "admin";
@@ -65,12 +73,41 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 adminText.setVisibility(View.VISIBLE);
                 loginBtn.setVisibility(View.VISIBLE);
+                checkLinear.setVisibility(View.VISIBLE);
                 notAdminText.setVisibility(View.GONE);
                 adminLoginBtn.setVisibility(View.GONE);
                 adminUserString = "user";
             }
         });
 
+        passEdt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (passEdt.getRight() - passEdt.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+
+                        if(passEyeState==true){
+                            passEyeState = false;
+                            passEdt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            passEdt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.key_24, 0, R.drawable.visibility_off_24, 0);
+
+                        }else{
+                            passEyeState = true;
+                            passEdt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            passEdt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.key_24, 0, R.drawable.visibility_24, 0);
+                        }
+
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         loadingBar = new ProgressDialog(this);
         Paper.init(this);

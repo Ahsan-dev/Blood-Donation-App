@@ -89,7 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/white_phone_24"
-                        android:hint="Mobile(with country code)"
+                        android:hint="Mobile"
                         android:textIsSelectable="false"
                         android:drawablePadding="10dp"
                         android:textColor="@color/white"
